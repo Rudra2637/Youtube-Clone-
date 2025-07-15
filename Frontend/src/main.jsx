@@ -7,6 +7,8 @@ import Header from './Components/header/Header.jsx'
 import { Provider } from 'react-redux'
 import Sidebar from './Components/sidebar/Sidebar.jsx'
 import store from './store/store.js'
+import SignUp from './Components/SignUp.jsx'
+import LoginPage from './Components/LoginPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       //   path:"/footer",
       //   element:<Sidebar/>
       // }
+      {
+        path:"/signUp",
+        element:<SignUp/>
+      },
+      {
+        path:"/login",
+        element:<LoginPage/>
+      }
     ]
   }
 ])

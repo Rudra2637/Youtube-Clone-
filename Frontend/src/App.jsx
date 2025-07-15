@@ -15,6 +15,9 @@ function App() {
           <div className="text-center">
             <h2 className="text-2xl font-semibold mb-4">Please Login to view content</h2>
             <p className="text-gray-400">Access your videos, history, and more by logging in.</p>
+            <div className="flex-1 p-4">
+            <Outlet />
+          </div>
           </div>
         </div>
       ) : (
