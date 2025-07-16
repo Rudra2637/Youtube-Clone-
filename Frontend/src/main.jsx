@@ -9,6 +9,7 @@ import Sidebar from './Components/sidebar/Sidebar.jsx'
 import store from './store/store.js'
 import SignUp from './Components/SignUp.jsx'
 import LoginPage from './Components/LoginPage.jsx'
+import Home from './Components/Home.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       //   path:"/footer",
       //   element:<Sidebar/>
       // }
+      {
+        path:"/",
+        element:<Home/>
+      },
       {
         path:"/signUp",
         element:<SignUp/>

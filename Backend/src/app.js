@@ -15,7 +15,10 @@ app.use(express.urlencoded({extended:true,limit:"16kb"}))
 app.use(express.static("public"))
 
 app.use(cookieParser())  //For accessing the user's cookie and setting it
-
+app.use((req, res, next) => {
+    console.log("➡️ Incoming request:", req.method, req.url);
+    next();
+})
 
 //Routes writing
 import router from './routes/user.route.js'

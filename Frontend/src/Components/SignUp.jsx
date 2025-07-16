@@ -1,63 +1,120 @@
-import React from 'react'
-import {useForm} from 'react-hook-form'
-import {useDispatch} from 'react-redux'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { login } from '../store/authSlice'
+import authService from '../functionalities/user'
+import { useNavigate } from 'react-router-dom'
 
 function SignUp() {
-    const {register,handleSubmit} = useForm()
+    const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [error, setError] = useState("")
 
-    const handlecClick = (data) => {
+    const handleClick = async (data) => {
+        console.log("Data submitted:", data);
+        setError("")
+        try {
+            const user = await authService.createAccount(data)
+            if (user) {
+                dispatch(login(user))
+                navigate('/')
+            }
+        } catch (error) {
+            setError(error.response?.data?.message || "Signup failed")
+        }
     }
 
     return (
-        <form onSubmit = {handleSubmit(handlecClick)} >
-            <div>
-                <label htmlFor="fullName">Full Name</label>
-                <input
-                type="text"
-                id="fullName"
-                placeholder="Enter your full name"
-                {...register("fullName",{required:true})}
-                />
-                <label htmlFor="userName">UserName</label>
-                <input
-                type="text"
-                id="userName"
-                placeholder="Enter your username"
-                {...register("userName",{required:true})}
-                />
-                <label htmlFor="email">Email</label>
-                <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                {...register("email",{required:true})}
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                {...register("password",{required:true})}
-                />
-                <label htmlFor="Avatar">Avatar</label>
-                <input
-                type="file"
-                id="Avatar"
-                placeholder="Upload your avatar"
-                {...register("avatar",{required:true})}
-                />
-                <label htmlFor="CoverImage">Cover Image</label>
-                <input
-                type="file"
-                id="CoverImage"
-                placeholder="Upload your CoverImage"
-                {...register("CoverImage")}
-                />
-                <button>Sign Up</button>
-            </div>
-        </form>
+        <div className="flex items-center justify-center min-h-[80vh]">
+            <form 
+                onSubmit={handleSubmit(handleClick)}
+                className="bg-black p-8 rounded-lg border border-gray-700 w-full max-w-md"
+            >
+                <h2 className="text-2xl font-semibold mb-6 text-center text-purple-500">
+                    Create your account
+                </h2>
+
+                <div className="flex flex-col gap-4">
+                    <div>
+                        <label htmlFor="fullName" className="block mb-1">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            {...register("fullName", { required: true })}
+                            className="w-full p-2 rounded bg-black border border-gray-600 focus:outline-none focus:border-purple-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="userName" className="block mb-1">Username</label>
+                        <input
+                            type="text"
+                            id="userName"
+                            placeholder="Enter your username"
+                            {...register("userName", { required: true })}
+                            className="w-full p-2 rounded bg-black border border-gray-600 focus:outline-none focus:border-purple-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="email" className="block mb-1">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            {...register("email", { required: true })}
+                            className="w-full p-2 rounded bg-black border border-gray-600 focus:outline-none focus:border-purple-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="password" className="block mb-1">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            {...register("password", { required: true })}
+                            className="w-full p-2 rounded bg-black border border-gray-600 focus:outline-none focus:border-purple-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="avatar" className="block mb-1">Avatar</label>
+                        <input
+                            type="file"
+                            id="avatar"
+                            {...register("avatar", { required: true })}
+                            className="w-full p-2 rounded bg-black border border-gray-600"
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="CoverImage" className="block mb-1">Cover Image</label>
+                        <input
+                            type="file"
+                            id="CoverImage"
+                            {...register("CoverImage")}
+                            className="w-full p-2 rounded bg-black border border-gray-600"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="mt-4 w-full py-2 rounded border border-purple-500 hover:bg-purple-600 transition"
+                    >
+                        Sign Up
+                    </button>
+
+                    {error && (
+                        <div className="mt-4 text-red-500 text-center">
+                            {error}
+                        </div>
+                    )}
+                </div>
+            </form>
+        </div>
     )
 }
 
