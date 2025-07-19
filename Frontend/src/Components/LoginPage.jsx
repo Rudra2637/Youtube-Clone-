@@ -16,7 +16,8 @@ function LoginPage() {
         try {
             const user = await authService.login(data)
             if(user){
-                dispatch(login(user))
+                console.log("Login successful:", user)
+                dispatch(login({ userData: user }))
                 navigate('/')
             }
         }

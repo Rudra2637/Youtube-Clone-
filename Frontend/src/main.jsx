@@ -10,6 +10,7 @@ import store from './store/store.js'
 import SignUp from './Components/SignUp.jsx'
 import LoginPage from './Components/LoginPage.jsx'
 import Home from './Components/Home.jsx'
+import Dashboard from './Components/Dashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path:"/login",
         element:<LoginPage/>
+      },
+      {
+        path:"/dashboard/:userName",
+        element:<Dashboard/>
       }
     ]
   }

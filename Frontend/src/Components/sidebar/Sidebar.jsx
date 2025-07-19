@@ -1,16 +1,20 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaHome, FaThumbsUp, FaHistory, FaVideo, FaFolder, FaUsers } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 function Sidebar() {
   
   const navigate = useNavigate()
+  const user = useSelector(state => state.auth.userData)
+  console.log("User ",user)
+  const userName = user?.data?.data?.userName || "me"
 
   const menuItems = [
     { name: 'Home', icon: <FaHome />, path: '/' },
     { name: 'Liked Videos', icon: <FaThumbsUp />, path: '/likedVideos' },
     { name: 'History', icon: <FaHistory />, path: '/history' },
-    { name: 'My Content', icon: <FaVideo />, path: '/user/:userId' },
+    { name: 'My Content', icon: <FaVideo />, path: `/dashboard/${userName}` },
     { name: 'Collections', icon: <FaFolder />, path: '/collections' },
     { name: 'Subscriptions', icon: <FaUsers />, path: '/subscriptions' },
   ]
