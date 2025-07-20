@@ -91,6 +91,7 @@ const toggleTweetLike = asyncHandler(async (req, res) => {
 const getLikedVideos = asyncHandler(async (req, res) => {
     //TODO: get all liked videos
     const userId = req.user._id
+    console.log("User Id ",userId)
     const videos = await Like.aggregate([
         {
             $match:{
@@ -102,37 +103,57 @@ const getLikedVideos = asyncHandler(async (req, res) => {
                 from:"videos",
                 localField:"video",
                 foreignField:"_id",
-                as:"likedvideo",
+                as:"likedvideo"
             }
         },
         {$unwind:"$likedvideo"},
         {
-            $lookup:{
-                from:"users",
-                localField:"likedvideo.owner",
-                foreignField:"_id",
-                as:"likedvideo.owner"
-            }
-        },
-        {$unwind:"$likedvideo.owner"},
-        {
             $project:{
-                videoId:"$likedvideo._id",
                 title:"$likedvideo.title",
                 thumbnail:"$likedvideo.thumbnail",
+                videoFile:"$likedvideo.videoFile",
                 duration:"$likedvideo.duration",
-                owner:{
-                    userName:{
-                        userName:"$likedvideo.owner.userName",
-                        avatar:"$likedvideo.owner.avatar"
-                    }
-                }
+                views:"$likedvideo.views",
+                description:"$likedvideo.description"
             }
         }
         
+        // {
+        //     $lookup:{
+        //         from:"videos",
+        //         localField:"video",
+        //         foreignField:"_id",
+        //         as:"likedvideo",
+        //     }
+        // },
+        // {$unwind:"$likedvideo"},
+        // {
+        //     $lookup:{
+        //         from:"users",
+        //         localField:"likedvideo.owner",
+        //         foreignField:"_id",
+        //         as:"likedvideo.owner"
+        //     }
+        // },
+        // {$unwind:"$likedvideo.owner"},
+        // {
+        //     $project:{
+        //         videoId:"$likedvideo._id",
+        //         title:"$likedvideo.title",
+        //         thumbnail:"$likedvideo.thumbnail",
+        //         duration:"$likedvideo.duration",
+        //         owner:{
+        //             userName:{
+        //                 userName:"$likedvideo.owner.userName",
+        //                 avatar:"$likedvideo.owner.avatar"
+        //             }
+        //         }
+        //     }
+        // }
+        
     ])
     
-
+    console.log("Videos ",videos)
     
     if (!videos.length) throw new ApiError(404, "No liked videos");
 

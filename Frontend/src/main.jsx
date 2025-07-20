@@ -11,6 +11,9 @@ import SignUp from './Components/SignUp.jsx'
 import LoginPage from './Components/LoginPage.jsx'
 import Home from './Components/Home.jsx'
 import Dashboard from './Components/Dashboard.jsx'
+import Collections from './Components/VideosUpload/Collections.jsx'
+import VideoPreview from './Components/VideosUpload/VideoPreview.jsx'
+import LikedVideos from './Components/LikedVideos.jsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,18 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/:userName",
         element:<Dashboard/>
+      },
+      {
+        path:"/uploadVideo",
+        element:<Collections/>
+      },
+      {
+        path:"/video-preview",
+        element:<VideoPreview/>
+      },
+      {
+        path:"/likedVideos",
+        element:<LikedVideos/>
       }
     ]
   }

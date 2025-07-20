@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Video({ 
+function VidTemplate({ 
   thumbnail, 
   duration, 
   title, 
@@ -48,4 +48,4 @@ function Video({
   );
 }
 
-export default Video;
+export default VidTemplate;
