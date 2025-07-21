@@ -14,6 +14,7 @@ import Dashboard from './Components/Dashboard.jsx'
 import Collections from './Components/VideosUpload/Collections.jsx'
 import VideoPreview from './Components/VideosUpload/VideoPreview.jsx'
 import LikedVideos from './Components/LikedVideos.jsx'
+import VideoPage from './Components/VideosUpload/VideoPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path:"/likedVideos",
         element:<LikedVideos/>
+      },
+      {
+        path:"/video/:id",
+        element:<VideoPage/>
       }
     ]
   }

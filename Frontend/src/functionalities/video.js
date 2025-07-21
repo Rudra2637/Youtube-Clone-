@@ -57,6 +57,24 @@ export class VideoService{
             throw error
         }
     }
+    async getVideoById(id){
+        try {
+            const response = await axios.get(`/api/v1/videos/${id}`)
+            if(response)return response.data
+        } catch (error) {
+            console.error("Error in getting video By id ",error)
+            throw error
+        }
+    }
+    async likeVideo(id){
+        try {
+            const response = await axios.post(`/api/v1/likes/toggle/v/${id}`)
+            if(response)return response.data
+        } catch (error) {
+            console.error("Error in liking video ",error)
+            throw error
+        }
+    }
 }
 
 const videoService = new VideoService()
