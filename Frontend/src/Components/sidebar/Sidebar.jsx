@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FaHome, FaThumbsUp, FaHistory, FaVideo, FaFolder, FaUsers } from 'react-icons/fa'
+import { FaHome, FaThumbsUp, FaHistory, FaVideo, FaFolder, FaUsers, FaTwitter } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
 function Sidebar() {
@@ -15,7 +15,7 @@ function Sidebar() {
   const menuItems = [
     { name: 'Home', icon: <FaHome />, path: '/' },
     { name: 'Liked Videos', icon: <FaThumbsUp />, path: '/likedVideos' },
-    { name: 'History', icon: <FaHistory />, path: `/user/${id}` },
+    { name: 'Tweets', icon: <FaTwitter/>, path: `/user/${id}` },
     { name: 'My Content', icon: <FaVideo />, path: `/dashboard/${userName}` },
     { name: 'Collections', icon: <FaFolder />, path: '/uploadVideo' },
     { name: 'Subscriptions', icon: <FaUsers />, path: '/subscriptions' },

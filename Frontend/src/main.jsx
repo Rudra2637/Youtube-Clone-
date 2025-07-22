@@ -16,6 +16,7 @@ import VideoPreview from './Components/VideosUpload/VideoPreview.jsx'
 import LikedVideos from './Components/LikedVideos.jsx'
 import VideoPage from './Components/VideosUpload/VideoPage.jsx'
 import Tweet from './Components/VideosUpload/Tweet.jsx'
+import AuthLayout from "./Components/AuthLayout.jsx"
 
 const router = createBrowserRouter([
   {
@@ -36,35 +37,74 @@ const router = createBrowserRouter([
       },
       {
         path:"/signUp",
-        element:<SignUp/>
+        element:(
+          <AuthLayout authentication = {false}>
+             <SignUp/>
+          </AuthLayout>
+         
+        )
       },
       {
         path:"/login",
-        element:<LoginPage/>
+        element:(
+          <AuthLayout authentication={false}>
+            <LoginPage/>
+          </AuthLayout>
+        )
       },
       {
         path:"/dashboard/:userName",
-        element:<Dashboard/>
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <Dashboard/>
+          </AuthLayout>
+        )
       },
       {
         path:"/uploadVideo",
-        element:<Collections/>
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <Collections/>
+          </AuthLayout>
+        )
       },
       {
         path:"/video-preview",
-        element:<VideoPreview/>
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <VideoPreview/>
+          </AuthLayout>
+        )
       },
       {
         path:"/likedVideos",
-        element:<LikedVideos/>
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <LikedVideos/>
+          </AuthLayout>
+        )
       },
       {
         path:"/video/:id",
-        element:<VideoPage/>
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <VideoPage/>
+          </AuthLayout>
+        )
       },
       {
         path:"/user/:id",
-        element:<Tweet/>
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <Tweet/>
+          </AuthLayout>
+        )
       }
     ]
   }
