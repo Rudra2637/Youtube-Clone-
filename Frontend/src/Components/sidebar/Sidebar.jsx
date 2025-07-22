@@ -18,7 +18,7 @@ function Sidebar() {
     { name: 'Tweets', icon: <FaTwitter/>, path: `/user/${id}` },
     { name: 'My Content', icon: <FaVideo />, path: `/dashboard/${userName}` },
     { name: 'Collections', icon: <FaFolder />, path: '/uploadVideo' },
-    { name: 'Subscriptions', icon: <FaUsers />, path: '/subscriptions' },
+    { name: 'Playlist', icon: <FaUsers />, path: `/playlist/${id}` },
   ]
 
   return (

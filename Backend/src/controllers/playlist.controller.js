@@ -11,7 +11,7 @@ const createPlaylist = asyncHandler(async (req, res) => {
 
     if([name,description].some((item) => item.trim() === ""))throw new ApiError(400,"All fields required");
 
-    const owner = await User.findById(req.body._id).select(
+    const owner = await User.findById(req.user._id).select(
         "-password  -refreshToken "
     )
 

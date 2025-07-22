@@ -17,6 +17,7 @@ import LikedVideos from './Components/LikedVideos.jsx'
 import VideoPage from './Components/VideosUpload/VideoPage.jsx'
 import Tweet from './Components/VideosUpload/Tweet.jsx'
 import AuthLayout from "./Components/AuthLayout.jsx"
+import Playlist from './Components/Playlist.jsx'
 
 const router = createBrowserRouter([
   {
@@ -103,6 +104,15 @@ const router = createBrowserRouter([
           <AuthLayout authentication>
             {" "}
             <Tweet/>
+          </AuthLayout>
+        )
+      },
+      {
+        path:"/playlist/:id",
+        element:(
+          <AuthLayout authentication>
+            {" "}
+            <Playlist/>
           </AuthLayout>
         )
       }
