@@ -97,7 +97,7 @@ const getUserTweets = asyncHandler(async (req, res) => {
     if(content.length === 0)throw new ApiError(401,"No tweet made by user");
     console.log("content ",content)
     return res.status(200)
-    .json(new ApiResponse(200,content[0],"Tweets fetched successfully"))
+    .json(new ApiResponse(200,content,"Tweets fetched successfully"))
 
 })
 

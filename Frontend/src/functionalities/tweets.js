@@ -30,6 +30,17 @@ export class TweetService{
             throw error
         }
     }
+    async updateTweet(id,data){
+        try {
+            const response = await axios.patch(`/api/v1/tweets/${id}`,{
+                content:data
+            })
+            return response.data
+        } catch (error) {
+            console.error("Error in updating tweets ",error)
+            throw error
+        }
+    }
 }
 
 const tweetService = new TweetService()

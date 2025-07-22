@@ -15,6 +15,7 @@ import Collections from './Components/VideosUpload/Collections.jsx'
 import VideoPreview from './Components/VideosUpload/VideoPreview.jsx'
 import LikedVideos from './Components/LikedVideos.jsx'
 import VideoPage from './Components/VideosUpload/VideoPage.jsx'
+import Tweet from './Components/VideosUpload/Tweet.jsx'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path:"/video/:id",
         element:<VideoPage/>
+      },
+      {
+        path:"/user/:id",
+        element:<Tweet/>
       }
     ]
   }

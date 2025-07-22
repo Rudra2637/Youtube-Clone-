@@ -8,12 +8,14 @@ function Sidebar() {
   const navigate = useNavigate()
   const user = useSelector(state => state.auth.userData)
   // console.log("User ",user)
+  const id = user?.data?.data?._id || ""
+  
   const userName = user?.data?.data?.userName || "me"
 
   const menuItems = [
     { name: 'Home', icon: <FaHome />, path: '/' },
     { name: 'Liked Videos', icon: <FaThumbsUp />, path: '/likedVideos' },
-    { name: 'History', icon: <FaHistory />, path: '/history' },
+    { name: 'History', icon: <FaHistory />, path: `/user/${id}` },
     { name: 'My Content', icon: <FaVideo />, path: `/dashboard/${userName}` },
     { name: 'Collections', icon: <FaFolder />, path: '/uploadVideo' },
     { name: 'Subscriptions', icon: <FaUsers />, path: '/subscriptions' },
