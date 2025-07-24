@@ -1,54 +1,61 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
-import authService from "../functionalities/user"
-import videoService from "../functionalities/video"
-import { login, logout } from "../store/authSlice"
-import Sidebar from "./sidebar/Sidebar"
-import VidTemplate from "./VidTemplate"
-import moment from "moment"
+import { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import authService from "../functionalities/user";
+import videoService from "../functionalities/video";
+import { login, logout } from "../store/authSlice";
+import Sidebar from "./sidebar/Sidebar";
+import VidTemplate from "./VidTemplate";
+import moment from "moment";
 
 function Home() {
-  const loginStatus = useSelector((state) => state.auth.status)
-  const dispatch = useDispatch()
-  const [videos, setVideos] = useState([])
+  const loginStatus = useSelector((state) => state.auth.status);
+  const dispatch = useDispatch();
+  const [videos, setVideos] = useState([]);
+  const hasWelcomed = useRef(false);
 
   useEffect(() => {
     async function checkUser() {
       try {
-        const userData = await authService.getCurrentUser()
-        if (userData) dispatch(login({ userData }))
-        else dispatch(logout())
+        const userData = await authService.getCurrentUser();
+        if (userData) {
+          dispatch(login({ userData }));
+          if (!hasWelcomed.current) {
+            hasWelcomed.current = true;
+            alert(
+              `🎬 Welcome to My FullStack Mern Project!\n\n📌 IMPORTANT NOTICE:\nThis is a full-stack demonstration project built to showcase my development skills. It's designed for portfolio purposes and educational demonstrations.\n\n⚠️ PLEASE BE MINDFUL:\nKindly avoid uploading long-duration videos (preferably under 2-3 minutes). This project runs on limited hosting resources, and large files could impact performance or exceed storage limits, potentially causing service disruptions.\n\n💚 THANK YOU!\nYour cooperation helps maintain the platform's stability and ensures a smooth experience for everyone exploring this project. Feel free to test all features and enjoy the demo!`
+            );
+          }
+        } else {
+          dispatch(logout());
+        }
       } catch (error) {
-        console.error("Error checking user: ", error)
+        console.error("Error checking user: ", error);
       }
     }
-    checkUser()
-  }, [dispatch])
+    checkUser();
+  }, [dispatch]);
 
   useEffect(() => {
     async function fetchVideos() {
       try {
-        const response = await videoService.getAllVideos()
-        setVideos(response.data.docs || [])
+        const response = await videoService.getAllVideos();
+        setVideos(response.data.docs || []);
       } catch (error) {
-        console.error("Error fetching videos: ", error)
+        console.error("Error fetching videos: ", error);
       }
     }
 
     if (loginStatus) {
-      fetchVideos()
+      fetchVideos();
     }
-  }, [loginStatus])
-
-  console.log("Videos ", videos)
+  }, [loginStatus]);
 
   if (!loginStatus) {
     return (
       <div className="flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 via-black to-blue-900 text-white relative overflow-hidden">
-        {/* Animated background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
@@ -64,12 +71,11 @@ function Home() {
           </p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-900 via-black to-purple-900 text-white relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-1000"></div>
@@ -109,8 +115,6 @@ function Home() {
                   views={video.views}
                   uploadedAt={moment(video.createdAt).fromNow()}
                 />
-
-                {/* Hover glow effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
               </div>
             </Link>
@@ -131,7 +135,7 @@ function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
