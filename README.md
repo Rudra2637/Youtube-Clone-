@@ -10,7 +10,7 @@ Welcome to **MyTube**, a full-stack YouTube clone built with modern web technolo
 - 🏠 **Home Page**
   - Display all public videos
   - Explore what others are watching
-
+<!-- Task-->
 <!-- Home page screenshot here -->
 ![Home Page](./screenshots/home.png)
 
