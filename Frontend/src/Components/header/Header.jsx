@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom"
 import { FaVideo, FaSearch, FaBell, FaUser } from "react-icons/fa"
 import authService from "../../functionalities/user"
 import { logout } from "../../store/authSlice"
+import { Link } from "react-router-dom"
 
 function Header() {
   const loginStatus = useSelector((state) => state.auth.status)
+  const user = useSelector((state) => state.auth.userData)
+  const userName = user?.data?.data?.userName || "me"
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -76,9 +79,11 @@ function Header() {
               </button>
 
               {/* Profile */}
-              <button className="group relative p-3 bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 hover:scale-110">
-                <FaUser className="text-gray-400 group-hover:text-purple-400 transition-colors duration-300" />
-              </button>
+              <Link to={`/dashboard/${userName}`}>
+                <button className="group relative p-3 bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 hover:scale-110">
+                  <FaUser className="text-gray-400 group-hover:text-purple-400 transition-colors duration-300" />
+                </button>
+              </Link>
 
               {/* Logout */}
               <button

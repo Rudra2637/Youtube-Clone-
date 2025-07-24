@@ -87,7 +87,7 @@ function Home() {
           <p className="text-xl text-gray-300">Discover the hottest content right now</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {videos.map((video, index) => (
             <Link
               key={video._id}

@@ -70,6 +70,18 @@ export class AuthService {
             throw error
         }
     }
+    async updateAccount(fullName,email){
+        try {
+            const response = await axios.patch("/api/v1/user/update-account",{
+                fullName:fullName,
+                email:email
+            })
+            return response.data
+        } catch (error) {
+            console.error("Error in updating user Details ",error)
+            throw error
+        }
+    }
 
 
 }
