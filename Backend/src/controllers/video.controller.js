@@ -18,7 +18,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
 
   const aggregateQuery = Video.aggregate([
     { $match: matchStage },
-    // {
+    {
     //   $lookup: {
     //     from: "users",
     //     let: { ownerId: "$owner" },
@@ -26,13 +26,23 @@ const getAllVideos = asyncHandler(async (req, res) => {
     //       { $match: { $expr: { $eq: ["$_id", "$$ownerId"] } } },
     //       { $project: { userName: 1, avatar: 1 } }
     //     ],
-    //     as: "owner"
+    //     as: "owner",
+    //     // pipeline:[
+    //     //     {$unwind:"$owner"}
+    //     // ]
     //   }
-    // },
+        $lookup:{
+            from:"users",
+            localField:"owner",
+            foreignField:"_id",
+            as:"owner"
+        }
+    },
+    
     // { $unwind: "$owner" },
     // { $sort: sortStage }
   ]);
-
+//   console.log("Video ",aggregateQuery)
   const options = {
     page: parseInt(page),
     limit: parseInt(limit)

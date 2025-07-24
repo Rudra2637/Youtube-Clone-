@@ -23,6 +23,8 @@ export class PlaylistService{
         }
     }
     async addVideo(videoId,playlistId){
+        console.log("PlaylistId ",playlistId)
+        console.log("VideoId ",videoId)
         try {
             const response = await axios.patch(`/api/v1/playlist/add/${videoId}/${playlistId}`)
             return response.data

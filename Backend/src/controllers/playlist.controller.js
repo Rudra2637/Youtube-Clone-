@@ -78,7 +78,7 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
                     }
                 ]
             }
-        },
+        }
        
     ])
      if (!playlist.length) {
