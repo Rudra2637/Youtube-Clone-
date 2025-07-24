@@ -1,12 +1,74 @@
-# React + Vite
+# 🎥 MyTube - A Full-Stack YouTube Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **MyTube**, a full-stack YouTube clone built with modern web technologies. It lets users upload, like, and organize videos in playlists, manage their profile, and explore content across multiple pages.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 **JWT Authentication**
+  - User login & signup functionality
+  - Protected routes using tokens
+- 🏠 **Home Page**
+  - Display all public videos
+  - Explore what others are watching
 
-## Expanding the ESLint configuration
+<!-- Insert Home page screenshot here -->
+![Home Page](./screenshots/home.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 👤 **Dashboard**
+  - View and manage user’s channel info
+  - Displays stats and uploaded videos
+
+<!-- Insert Dashboard screenshot here -->
+![Dashboard](./screenshots/dashboard.png)
+
+- 🎞️ **Playlists**
+  - Create custom playlists
+  - Add/remove videos
+  - Drag and drop videos to reorder
+
+<!-- Insert Playlist screenshot here -->
+![Playlists](./screenshots/playlists.png)
+
+- ❤️ **Liked Videos**
+  - Automatically stores videos the user likes
+  - Only visible to the user
+
+<!-- Insert Liked Videos screenshot here -->
+![Liked Videos](./screenshots/liked.png)
+
+- 🐦 **Tweets Page**
+  - A creative section to allow YouTube-like social posts
+  - Display user tweets or short video updates
+
+<!-- Insert Tweets Page screenshot here -->
+![Tweets](./screenshots/tweets.png)
+
+## 🧰 Tech Stack
+
+### Frontend
+
+- React
+- Redux Toolkit
+- React Router
+- Axios
+- Tailwind CSS
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- Multer (for uploads)
+- JSON Web Tokens (JWT)
+- Cloudinary
+
+## 🔐 Authentication
+
+- JWT stored in localStorage for session persistence
+- Login/Signup pages validate and securely authenticate users
+
+<!-- Insert Login/Signup screenshots here -->
+![Login](./screenshots/login.png)
+![Signup](./screenshots/signup.png)
+
+## 🗂️ Folder Structure (Client)
