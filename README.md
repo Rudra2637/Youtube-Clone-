@@ -71,7 +71,7 @@ Welcome to **MyTube**, a full-stack YouTube clone built with modern web technolo
 ![Login](./screenshots/login.png)
 ![Signup](./screenshots/signup.png)
 
-## 🗂️ Folder Structure (Client)
+### 🗂️ Folder Structure (Client)
 
 Frontend/
 ├── public/
@@ -86,7 +86,7 @@ Frontend/
 ├── package.json
 └── README.md
 
-## 🗂️ Folder Structure (Server)
+### 🗂️ Folder Structure (Server)
 
 Backend/
 ├── Public/               # Static assets or uploads
