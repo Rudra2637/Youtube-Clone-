@@ -3,7 +3,7 @@ import {Video} from "../models/video.model.js"
 import {User} from "../models/user.model.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
-import { asyncHandler } from "../utils/async_Handler.js"
+import { asyncHandler } from "../utils/async_handler.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 
 const getAllVideos = asyncHandler(async (req, res) => {
