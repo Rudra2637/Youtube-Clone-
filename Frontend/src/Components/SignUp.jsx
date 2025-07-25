@@ -14,18 +14,18 @@ function SignUp() {
   const [error, setError] = useState("")
 
   const handleClick = async (data) => {
-    console.log("Data submitted:", data)
-    setError("")
-    try {
-      const user = await authService.createAccount(data)
-      if (user) {
-        dispatch(login(user))
-        navigate("/login")
-      }
-    } catch (error) {
-      setError(error.response?.data?.message || "Signup failed")
+  // console.log("Data submitted:", data);
+  setError("");
+  try {
+    const user = await authService.createAccount(data);
+    if (user) {
+      // ✅ Don't log in here
+      navigate("/login"); // Redirect to login after signup
     }
+  } catch (error) {
+    setError(error.response?.data?.message || "Signup failed");
   }
+};
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-blue-900 px-4 relative overflow-hidden">

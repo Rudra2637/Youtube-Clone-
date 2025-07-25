@@ -18,6 +18,7 @@ export class AuthService {
 
         try {
             const response = await axios.post('/api/v1/user/register',formData)
+            
             return response.data
         } catch (error) {
             
