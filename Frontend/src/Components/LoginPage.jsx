@@ -1,36 +1,43 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import { login } from "../store/authSlice"
-import authService from "../functionalities/user"
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { login } from "../store/authSlice";
+import authService from "../functionalities/user";
 
 function LoginPage() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { register, handleSubmit } = useForm()
-  const [error, setError] = useState("")
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const [error, setError] = useState("");
 
   const handleClick = async (data) => {
-    setError("")
+    setError("");
     try {
-      const user = await authService.login(data)
-      if (user) {
-        console.log("Login successful:", user)
-        dispatch(login({ userData: user }))
-        navigate("/")
+      const user = await authService.login(data);
+
+      if (user?.accessToken) {
+        // ✅ Store access token in localStorage
+        localStorage.setItem("accessToken", user.accessToken);
+
+        // ✅ Dispatch login data to Redux
+        dispatch(login({ userData: user }));
+
+        console.log("Login successful:", user);
+        navigate("/");
+      } else {
+        throw new Error("Access token not received from server");
       }
     } catch (err) {
-      console.error(err)
-      setError(err.response?.data?.message || "Invalid credentials")
+      console.error(err);
+      setError(err.response?.data?.message || "Invalid credentials");
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-green-900 px-4 relative overflow-hidden">
-      {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-green-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
@@ -140,17 +147,24 @@ function LoginPage() {
       </div>
 
       <style jsx>{`
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-5px); }
-                    75% { transform: translateX(5px); }
-                }
-                .animate-shake {
-                    animation: shake 0.5s ease-in-out;
-                }
-            `}</style>
+        @keyframes shake {
+          0%,
+          100% {
+            transform: translateX(0);
+          }
+          25% {
+            transform: translateX(-5px);
+          }
+          75% {
+            transform: translateX(5px);
+          }
+        }
+        .animate-shake {
+          animation: shake 0.5s ease-in-out;
+        }
+      `}</style>
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

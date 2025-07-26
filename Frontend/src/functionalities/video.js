@@ -1,82 +1,147 @@
-import axios from 'axios'
+import axios from 'axios';
 
-export class VideoService{
+export class VideoService {
+  async createVideo(data) {
+    const token = localStorage.getItem("accessToken");
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('videoFile', data.video[0]);
+    formData.append('thumbnail', data.thumbnail[0]);
 
-    async createVideo(data){
-        const formData = new FormData()
-        formData.append('title',data.title)
-        formData.append('description',data.description)
-        formData.append('videoFile',data.video[0])
-        formData.append('thumbnail',data.thumbnail[0])
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in uploading a Video ", error);
+      throw error;
+    }
+  }
 
-        
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/`,formData,{withCredentials:true})
-            if(response) return response.data
-        } catch (error) {
-            console.error("Error in uploading a Video ",error)
-            throw error
+  async getChannelStats() {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/dashboard/stats`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in get Channel Stats ", error);
+      throw error;
     }
-    async getChannelStats(){
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/dashboard/stats`,{withCredentials:true})
-            return response.data;
-        } catch (error) {
-            console.error("Error in get Channel Stats ",error)
-            throw error
+  }
+
+  async getAllVideos() {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
-        
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in fetching all videos ", error);
+      throw error;
     }
-    async getAllVideos() {
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/`,{withCredentials:true})
-            return response.data
-        } catch (error) {
-            console.error("Error in fetching all videos ",error)
-            throw error
+  }
+
+  async getChannelVideos() {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/dashboard/videos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in get Channel Videos ", error);
+      throw error;
     }
-    async getChannelVideos(){
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/dashboard/videos`,{withCredentials:true})
-            return response.data;
-        } catch (error) {
-            console.error("Error in get Channel Stats ",error)
-            throw error
+  }
+
+  async getLikedVideos() {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/videos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
-        
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in fetching Liked videos ", error);
+      throw error;
     }
-    async getLikedVideos() {
-        try{
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/videos`,{withCredentials:true}) 
-            return response.data
+  }
+
+  async getVideoById(id) {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
-        catch(error){
-            console.error("Error in fetching Liked videos ",error)
-            throw error
-        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in getting video By id ", error);
+      throw error;
     }
-    async getVideoById(id){
-        try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/${id}`,{withCredentials:true})
-            if(response)return response.data
-        } catch (error) {
-            console.error("Error in getting video By id ",error)
-            throw error
+  }
+
+  async likeVideo(id) {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/toggle/v/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in liking video ", error);
+      throw error;
     }
-    async likeVideo(id){
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/toggle/v/${id}`,{withCredentials:true})
-            if(response)return response.data
-        } catch (error) {
-            console.error("Error in liking video ",error)
-            throw error
-        }
-    }
+  }
 }
 
-const videoService = new VideoService()
-
-export default videoService
+const videoService = new VideoService();
+export default videoService;
