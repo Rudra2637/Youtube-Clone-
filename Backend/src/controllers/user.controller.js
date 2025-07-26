@@ -173,39 +173,41 @@ const loginUser = asyncHandler( async (req,res) => {
 
 })
 
-const logOut = asyncHandler(async (req,res) => {
-    //Remove the tokens from the user also reset the cookie
-    // console.log("req.user console.log ",req.user)
-    // const user = await User.findById(req.user?._id)
-    // console.log("another user ",user)
-    await User.findByIdAndUpdate(
-        req.user._id,
-        {
-            $unset:{
-                refreshToken:1           //Removes the field from the document
-            }
-        },
-        {
-            new:true             //  Returns either:The original (old) document by default Or the new (updated) one, if you pass { new: true }
-        } 
-    )
-    const options = {
-        httpOnly: true,
-        secure: true,           // Required for HTTPS
-        sameSite: "None",       // Required for cross-site cookies
-        maxAge: 7 * 24 * 60 * 60 * 1000 // Optional: 7 days
-    };
+const logOut = asyncHandler(async (req, res) => {
+  const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None"
+  };
 
-    return res.status(200)
-    .clearCookie("accessToken",options)
-    .clearCookie("refreshToken",options)
-    .json(200,
-        {},
-        "user logged out successfully"
-    )
+  try {
+    // Only try to clear refreshToken if user is logged in
+    if (req.user?._id) {
+      await User.findByIdAndUpdate(req.user._id, {
+        $unset: {
+          refreshToken: 1
+        }
+      });
+    }
 
-    
-})
+    return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(
+        new ApiResponse(200, {}, "User logged out successfully")
+      );
+  } catch (error) {
+    return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(
+        new ApiResponse(200, {}, "Force logout completed")
+      );
+  }
+});
+
 
 const refreshAccessToken = asyncHandler(async(req,res) => {
     
