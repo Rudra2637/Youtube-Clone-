@@ -1,50 +1,50 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import authService from "../functionalities/user";
-import videoService from "../functionalities/video";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import authService from "../functionalities/user"
+import videoService from "../functionalities/video"
 
 function Dashboard() {
-  const { userName } = useParams();
-  const [channel, setChannel] = useState(null);
-  const [stats, setStats] = useState(null);
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { userName } = useParams()
+  const [channel, setChannel] = useState(null)
+  const [stats, setStats] = useState(null)
+  const [videos, setVideos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
 
-  const [editing, setEditing] = useState(false);
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
+  const [editing, setEditing] = useState(false)
+  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("")
 
   useEffect(() => {
     const fetchChannelData = async () => {
       try {
-        setLoading(true);
-        const profileData = await authService.getUserChannelProfile(userName);
-        setChannel(profileData.data);
-        setFullName(profileData.data.data.fullName || "");
-        setEmail(profileData.data.data.email || "");
+        setLoading(true)
+        const profileData = await authService.getUserChannelProfile(userName)
+        setChannel(profileData.data)
+        setFullName(profileData.data.data.fullName || "")
+        setEmail(profileData.data.data.email || "")
 
-        const statsData = await videoService.getChannelStats();
-        const videoList = await videoService.getChannelVideos();
+        const statsData = await videoService.getChannelStats()
+        const videoList = await videoService.getChannelVideos()
 
-        setStats(statsData.data);
-        setVideos(videoList.data);
+        setStats(statsData.data)
+        setVideos(videoList.data)
       } catch (err) {
-        setError(err.response?.data?.message || "Error loading dashboard");
+        setError(err.response?.data?.message || "Error loading dashboard")
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchChannelData();
-  }, [userName]);
+    fetchChannelData()
+  }, [userName])
 
   const handleUpdate = async () => {
     try {
-      setError("");
-      await authService.updateAccount(fullName, email);
+      setError("")
+      await authService.updateAccount(fullName, email)
       setChannel((prev) => ({
         ...prev,
         data: {
@@ -55,20 +55,66 @@ function Dashboard() {
           avatar: prev.data.avatar,
           userName: prev.data.userName,
         },
-      }));
-      setEditing(false);
-      alert("Profile updated successfully!");
+      }))
+      setEditing(false)
+      alert("Profile updated successfully!")
     } catch (err) {
-      setError("Failed to update profile. Try again.");
+      setError("Failed to update profile. Try again.")
     }
-  };
+  }
 
   if (loading) {
-    return <div className="text-white p-6">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative mb-8">
+            <div className="w-20 h-20 mx-auto border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+            <div
+              className="absolute inset-0 w-20 h-20 mx-auto border-4 border-blue-500/20 border-r-blue-500 rounded-full animate-spin"
+              style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
+            ></div>
+          </div>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent mb-4">
+            Loading Dashboard
+          </h2>
+          <p className="text-gray-400 mb-8">Fetching your channel data...</p>
+
+          {/* Skeleton Loading */}
+          <div className="max-w-4xl mx-auto p-6 space-y-6">
+            {/* Cover Image Skeleton */}
+            <div className="h-64 md:h-80 w-full bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-3xl animate-pulse"></div>
+
+            {/* Profile Section Skeleton */}
+            <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
+              <div className="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-full animate-pulse"></div>
+              <div className="flex-1 space-y-3">
+                <div className="h-8 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg animate-pulse"></div>
+                <div className="h-6 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg animate-pulse w-3/4"></div>
+                <div className="h-4 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg animate-pulse w-1/2"></div>
+              </div>
+            </div>
+
+            {/* Videos Grid Skeleton */}
+            <div className="space-y-4">
+              <div className="h-6 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg animate-pulse w-48"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[1, 2, 3, 4, 5, 6].map((item) => (
+                  <div key={item} className="bg-gray-800 p-4 rounded-lg space-y-3">
+                    <div className="h-40 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded animate-pulse"></div>
+                    <div className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded animate-pulse"></div>
+                    <div className="h-3 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded animate-pulse w-3/4"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (error) {
-    return <div className="text-red-400 p-6">{error}</div>;
+    return <div className="text-red-400 p-6">{error}</div>
   }
 
   return (
@@ -139,10 +185,7 @@ function Dashboard() {
       <h2 className="text-2xl font-semibold text-purple-300 mb-4">Uploaded Videos</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {videos.map((video) => (
-          <div
-            key={video._id}
-            className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-purple-500/30 transition"
-          >
+          <div key={video._id} className="bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-purple-500/30 transition">
             <img
               src={video.thumbnail || "/placeholder.svg"}
               alt={video.title}
@@ -154,7 +197,7 @@ function Dashboard() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

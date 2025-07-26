@@ -7,7 +7,7 @@ import { asyncHandler } from "../utils/async_handler.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 
 const getAllVideos = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10, sortBy = "createdAt", sortType = "desc" } = req.query;
+  const { page = 1, limit = 100, sortBy = "createdAt", sortType = "desc" } = req.query;
 
   const matchStage = {
     isPublished: true // ✅ only public videos
@@ -40,7 +40,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
     },
     
     // { $unwind: "$owner" },
-    // { $sort: sortStage }
+    { $sort: sortStage }
   ]);
 //   console.log("Video ",aggregateQuery)
   const options = {
