@@ -16,17 +16,13 @@ function Header() {
 
   const handleClick = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-
-      const response = await authService.logout(token);
-
+      const response = await authService.logout()
       if (response) {
-        localStorage.removeItem("accessToken");
-        dispatch(logout());
-        navigate("/");
+        dispatch(logout())
+        navigate("/")
       }
     } catch (error) {
-      console.error("Error Logging out: ", error);
+      console.error("Error Logging out: ", error)
     }
   }
 
