@@ -17,7 +17,7 @@ export class AuthService {
         }
 
         try {
-            const response = await axios.post('/api/v1/user/register',formData)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,formData,{ withCredentials: true })
             
             return response.data
         } catch (error) {
@@ -33,7 +33,7 @@ export class AuthService {
             password:data.password,
         }
         try{
-            const response = await axios.post('/api/v1/user/login',dataToSend)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,dataToSend,{withCredentials:true})
             return response.data
         }
         catch(error){
@@ -43,7 +43,7 @@ export class AuthService {
     }
     async logout() {
         try {
-            const response = await axios.post('/api/v1/user/logout')
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,{withCredentials:true})
             return response.data
         }
         catch (error){
@@ -53,7 +53,7 @@ export class AuthService {
     }
     async getUserChannelProfile(userName) {
         try {
-            const  data  = await axios.get(`/api/v1/user/c/${userName}`);
+            const  data  = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/c/${userName}`,{withCredentials:true});
             return data;
         } catch (error) {
             console.error("Error fetching user channel profile:", error);
@@ -62,8 +62,8 @@ export class AuthService {
     }
     async getCurrentUser() {
         try{
-            const data = await axios.get('api/v1/user/current-user')
-            console.log("Current user data: ",data)
+            const data = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/current-user`,{withCredentials:true})
+            // console.log("Current user data: ",data)
             return data
         }
         catch(error){
@@ -73,10 +73,10 @@ export class AuthService {
     }
     async updateAccount(fullName,email){
         try {
-            const response = await axios.patch("/api/v1/user/update-account",{
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/update-account`,{
                 fullName:fullName,
                 email:email
-            })
+            },{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in updating user Details ",error)

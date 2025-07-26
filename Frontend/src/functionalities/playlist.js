@@ -3,10 +3,10 @@ import axios from "axios";
 export class PlaylistService{
     async createPlaylist(name,content){
         try {
-            const response = await axios.post("/api/v1/playlist/",{
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/`,{
                 name:name,
                 description:content
-            })
+            },{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in Creating Playlist ",error)
@@ -15,7 +15,7 @@ export class PlaylistService{
     }
     async getUserPlaylist(id){
         try {
-            const response = await axios.get(`/api/v1/playlist/user/${id}`)
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/user/${id}`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in fetching Playlist ",error)
@@ -23,10 +23,10 @@ export class PlaylistService{
         }
     }
     async addVideo(videoId,playlistId){
-        console.log("PlaylistId ",playlistId)
-        console.log("VideoId ",videoId)
+        // console.log("PlaylistId ",playlistId)
+        // console.log("VideoId ",videoId)
         try {
-            const response = await axios.patch(`/api/v1/playlist/add/${videoId}/${playlistId}`)
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/add/${videoId}/${playlistId}`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in adding Video ",error)
@@ -35,7 +35,7 @@ export class PlaylistService{
     }
     async removeVideo(videoId,playlistId){
         try{
-            const response = await axios.patch(`/api/v1/playlist/remove/${videoId}/${playlistId}`)
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/remove/${videoId}/${playlistId}`,{withCredentials:true})
             return response.data
         }
         catch(error){

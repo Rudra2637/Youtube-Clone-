@@ -3,9 +3,9 @@ import axios from "axios";
 export class TweetService{
     async createTweet(data){
         try {
-            const response = await axios.post("/api/v1/tweets/",{
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tweets/`,{
                 content:data
-            })    
+            },{withCredentials:true})    
             return response.data
         } catch (error) {
             console.error("Error in creating tweet ",error)
@@ -14,7 +14,7 @@ export class TweetService{
     }
     async getUserTweet(id){
         try {
-            const response = await axios.get(`/api/v1/tweets/user/${id}`)
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tweets/user/${id}`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in fetching user Tweets ",error)
@@ -23,7 +23,7 @@ export class TweetService{
     }
     async deleteTweet(id){
         try {
-            const response = await axios.delete(`/api/v1/tweets/${id}`)
+            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tweets/${id}`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in deleting user tweets ",error)
@@ -32,9 +32,9 @@ export class TweetService{
     }
     async updateTweet(id,data){
         try {
-            const response = await axios.patch(`/api/v1/tweets/${id}`,{
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/tweets/${id}`,{
                 content:data
-            })
+            },{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in updating tweets ",error)

@@ -11,7 +11,7 @@ export class VideoService{
 
         
         try {
-            const response = await axios.post("/api/v1/videos/",formData)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/`,formData,{withCredentials:true})
             if(response) return response.data
         } catch (error) {
             console.error("Error in uploading a Video ",error)
@@ -20,7 +20,7 @@ export class VideoService{
     }
     async getChannelStats(){
         try {
-            const response = await axios.get("/api/v1/dashboard/stats")
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/dashboard/stats`,{withCredentials:true})
             return response.data;
         } catch (error) {
             console.error("Error in get Channel Stats ",error)
@@ -30,7 +30,7 @@ export class VideoService{
     }
     async getAllVideos() {
         try {
-            const response = await axios.get("/api/v1/videos/")
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in fetching all videos ",error)
@@ -39,7 +39,7 @@ export class VideoService{
     }
     async getChannelVideos(){
         try {
-            const response = await axios.get("/api/v1/dashboard/videos")
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/dashboard/videos`,{withCredentials:true})
             return response.data;
         } catch (error) {
             console.error("Error in get Channel Stats ",error)
@@ -49,7 +49,7 @@ export class VideoService{
     }
     async getLikedVideos() {
         try{
-            const response = await axios.get("/api/v1/likes/videos") 
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/videos`,{withCredentials:true}) 
             return response.data
         }
         catch(error){
@@ -59,7 +59,7 @@ export class VideoService{
     }
     async getVideoById(id){
         try {
-            const response = await axios.get(`/api/v1/videos/${id}`)
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/${id}`,{withCredentials:true})
             if(response)return response.data
         } catch (error) {
             console.error("Error in getting video By id ",error)
@@ -68,7 +68,7 @@ export class VideoService{
     }
     async likeVideo(id){
         try {
-            const response = await axios.post(`/api/v1/likes/toggle/v/${id}`)
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/toggle/v/${id}`,{withCredentials:true})
             if(response)return response.data
         } catch (error) {
             console.error("Error in liking video ",error)
