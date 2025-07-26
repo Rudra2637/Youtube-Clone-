@@ -17,13 +17,7 @@ export class AuthService {
         }
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,formData,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                { withCredentials: true })
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/register`,formData,{ withCredentials: true })
             
             return response.data
         } catch (error) {
@@ -39,13 +33,7 @@ export class AuthService {
             password:data.password,
         }
         try{
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,dataToSend,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true})
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/login`,dataToSend,{withCredentials:true})
             return response.data
         }
         catch(error){
@@ -55,13 +43,7 @@ export class AuthService {
     }
     async logout() {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true})
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,{withCredentials:true})
             return response.data
         }
         catch (error){
@@ -71,13 +53,7 @@ export class AuthService {
     }
     async getUserChannelProfile(userName) {
         try {
-            const  data  = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/c/${userName}`,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true});
+            const  data  = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/c/${userName}`,{withCredentials:true});
             return data;
         } catch (error) {
             console.error("Error fetching user channel profile:", error);
@@ -86,13 +62,7 @@ export class AuthService {
     }
     async getCurrentUser() {
         try{
-            const data = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/current-user`,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true})
+            const data = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/current-user`,{withCredentials:true})
             // console.log("Current user data: ",data)
             return data
         }
@@ -106,13 +76,7 @@ export class AuthService {
             const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/update-account`,{
                 fullName:fullName,
                 email:email
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-            {withCredentials:true})
+            },{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in updating user Details ",error)

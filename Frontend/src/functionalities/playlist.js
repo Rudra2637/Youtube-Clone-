@@ -6,13 +6,7 @@ export class PlaylistService{
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/`,{
                 name:name,
                 description:content
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-            {withCredentials:true})
+            },{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in Creating Playlist ",error)
@@ -21,13 +15,7 @@ export class PlaylistService{
     }
     async getUserPlaylist(id){
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/user/${id}`,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true})
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/user/${id}`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in fetching Playlist ",error)
@@ -38,13 +26,7 @@ export class PlaylistService{
         // console.log("PlaylistId ",playlistId)
         // console.log("VideoId ",videoId)
         try {
-            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/add/${videoId}/${playlistId}`,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true})
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/add/${videoId}/${playlistId}`,{withCredentials:true})
             return response.data
         } catch (error) {
             console.error("Error in adding Video ",error)
@@ -53,13 +35,7 @@ export class PlaylistService{
     }
     async removeVideo(videoId,playlistId){
         try{
-            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/remove/${videoId}/${playlistId}`,
-                {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-            },
-                {withCredentials:true})
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/playlist/remove/${videoId}/${playlistId}`,{withCredentials:true})
             return response.data
         }
         catch(error){
