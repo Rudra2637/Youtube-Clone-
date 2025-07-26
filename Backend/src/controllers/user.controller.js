@@ -151,9 +151,11 @@ const loginUser = asyncHandler( async (req,res) => {
     //Now setting up of cookies
 
     const options = {
-        httpOnly:true,
-        secure:true   
-    }                               //These two options if set true denote that the cookie can't be changed in the frontend it can only 
+        httpOnly: true,
+        secure: true,           // Required for HTTPS
+        sameSite: "None",       // Required for cross-site cookies
+        maxAge: 7 * 24 * 60 * 60 * 1000 // Optional: 7 days
+    };                             //These two options if set true denote that the cookie can't be changed in the frontend it can only 
     // console.log("req.body me kya hai idhar dekho ",req.body)                                //be managed or changed by the server
     return res.status(200)
     .cookie("accessToken",accessToken,options)
@@ -188,9 +190,11 @@ const logOut = asyncHandler(async (req,res) => {
         } 
     )
     const options = {
-        httpOnly:true,
-        secure:true   
-    } 
+        httpOnly: true,
+        secure: true,           // Required for HTTPS
+        sameSite: "None",       // Required for cross-site cookies
+        maxAge: 7 * 24 * 60 * 60 * 1000 // Optional: 7 days
+    };
 
     return res.status(200)
     .clearCookie("accessToken",options)
