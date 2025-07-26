@@ -12,8 +12,8 @@ export class AuthService {
         if (data.avatar && data.avatar.length > 0) {
             formData.append('avatar', data.avatar[0]);  // <-- get File from FileList
         }
-        if (data.CoverImage && data.CoverImage.length > 0) {
-            formData.append('coverImage', data.CoverImage[0]);
+        if (data.coverImage && data.CoverImage.length > 0) {
+            formData.append('coverImage', data.coverImage[0]);
         }
 
         try {

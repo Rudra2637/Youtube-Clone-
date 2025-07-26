@@ -138,8 +138,8 @@ function SignUp() {
               </label>
               <input
                 type="file"
-                id="CoverImage"
-                {...register("CoverImage")}
+                id="coverImage"
+                {...register("coverImage")}
                 className="w-full p-4 rounded-xl bg-gray-800/50 border-2 border-gray-600/50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 file:cursor-pointer cursor-pointer transition-all duration-300 hover:border-gray-500"
               />
             </div>
