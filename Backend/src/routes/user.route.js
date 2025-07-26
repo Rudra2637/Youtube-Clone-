@@ -22,7 +22,7 @@ router.route("/login").post(loginUser)
 
 
 //Secured Routes
-router.route("/logout").post(verifyJwt,logOut)
+router.route("/logout").post(logOut)
 
 router.route("/refresh-token").post( refreshAccessToken)
 
