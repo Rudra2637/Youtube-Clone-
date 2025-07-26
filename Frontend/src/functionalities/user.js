@@ -43,7 +43,7 @@ export class AuthService {
     }
     async logout() {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,{withCredentials:true})
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,{},{withCredentials:true})
             return response.data
         }
         catch (error){
