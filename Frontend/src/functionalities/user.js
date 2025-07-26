@@ -12,7 +12,7 @@ export class AuthService {
         if (data.avatar && data.avatar.length > 0) {
             formData.append('avatar', data.avatar[0]);  // <-- get File from FileList
         }
-        if (data.coverImage && data.CoverImage.length > 0) {
+        if (data.coverImage && data.coverImage.length > 0) {
             formData.append('coverImage', data.coverImage[0]);
         }
 
