@@ -70,9 +70,9 @@ function Tweet() {
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-4 animate-pulse">
-            🐦 Your Tweet Space
+            🐦 Tweet Anonymously
           </h1>
-          <p className="text-xl text-gray-300">Share your thoughts with the world</p>
+          <p className="text-xl text-gray-300">Share your thoughts with the world anonymously</p>
         </div>
 
         {/* Tweet Input Box */}
