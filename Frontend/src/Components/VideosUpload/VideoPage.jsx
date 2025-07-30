@@ -51,16 +51,15 @@ export default function VideoPage() {
   }
 
   const handleLike = async () => {
+    // Optimistic update
+    setLiked(prevLiked => !prevLiked); // Toggle immediately for responsiveness
+
     try {
-      if (!liked) {
-        setLiked(true)
-        await videoService.likeVideo(id)
-      } else {
-        setLiked(false)
-        await videoService.likeVideo(id)
-      }
+      await videoService.likeVideo(id); // Call the API to toggle like
     } catch (error) {
-      console.error("Error toggling like", error)
+      console.error("Error toggling like", error);
+      // Rollback the state if the API call fails
+      setLiked(prevLiked => !prevLiked);
     }
   }
 
