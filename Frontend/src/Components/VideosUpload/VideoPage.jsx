@@ -52,13 +52,8 @@ export default function VideoPage() {
 
   const handleLike = async () => {
     try {
-      if (!liked) {
         setLiked(true)
         await videoService.likeVideo(id)
-      } else {
-        setLiked(false)
-        await videoService.likeVideo(id)
-      }
     } catch (error) {
       console.error("Error toggling like", error)
     }
