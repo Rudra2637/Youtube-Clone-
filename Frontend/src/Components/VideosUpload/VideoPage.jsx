@@ -51,15 +51,16 @@ export default function VideoPage() {
   }
 
   const handleLike = async () => {
-    // Optimistic update
-    setLiked(prevLiked => !prevLiked); // Toggle immediately for responsiveness
-
     try {
-      await videoService.likeVideo(id); // Call the API to toggle like
+      if (!liked) {
+        setLiked(true)
+        await videoService.likeVideo(id)
+      } else {
+        setLiked(false)
+        await videoService.likeVideo(id)
+      }
     } catch (error) {
-      console.error("Error toggling like", error);
-      // Rollback the state if the API call fails
-      setLiked(prevLiked => !prevLiked);
+      console.error("Error toggling like", error)
     }
   }
 
@@ -124,7 +125,7 @@ export default function VideoPage() {
               </div>
             ) : (
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl">
-                <video className="w-full h-auto max-h-[70vh] object-contain bg-black" controls autoPlay>
+                <video className="w-full aspect-video object-cover" controls autoPlay>
                   <source src={videoData.videoFile || ""} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
