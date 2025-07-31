@@ -124,8 +124,13 @@ export default function VideoPage() {
                 </div>
               </div>
             ) : (
-              <div className="relative group overflow-hidden rounded-2xl shadow-2xl">
-                <video className="w-full h-auto max-h-[70vh] object-contain bg-black" controls autoPlay>
+              <div className="relative group overflow-hidden rounded-2xl shadow-2xl bg-black">
+                <video 
+                  className="w-full h-auto aspect-video object-contain bg-black rounded-2xl" 
+                  controls 
+                  autoPlay
+                  style={{ minHeight: '400px' }}
+                >
                   <source src={videoData.videoFile || ""} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
